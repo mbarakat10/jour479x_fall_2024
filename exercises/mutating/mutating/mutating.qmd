@@ -11,7 +11,7 @@ So first we'll import the tidyverse so we can read in our data and begin to work
 ```{r}
 #| warning: false
 #| message: false
-# load the tidyverse here
+library(tidyverse)
 ```
 
 Now you'll need a common and simple dataset of total attendance at NCAA football games over the last few seasons.
@@ -51,14 +51,15 @@ head(attendance)
 
 What's one thing you notice about the data that might make year-over-year comparisons more complex?
 
-**Answer** DESCRIBE IT HERE
+**Answer** Some schools don't have data (have N/A) for some years, which means the data might be inaccurate or missing some key information.
 
 The code to calculate percent change is pretty simple. Remember, with `summarize`, we used `n()` to count things. With `mutate`, we use very similar syntax to calculate a new value using other values in our dataset. So in this case, we're trying to do (new-old)/old, but we're doing it with fields. If we look at what we got when we did `head`, you'll see there's \`2023\` as the new data, and we'll use \`2022\` as the old data. So we're looking at one year. Then, to help us, we'll use arrange again to sort it, so we get the fastest growing school over one year.
 
 ```{r}
-attendance |> mutate(
+attendance |> 
+  mutate(
   change = (`2023` - `2022`)/`2022`
-) 
+)
 ```
 
 What do we see right away? Do those numbers look like we expect them to? No. They're a decimal expressed as a percentage. So let's fix that by multiplying by 100.
@@ -79,7 +80,7 @@ attendance |> mutate(
 
 Who had the most growth in 2023 compared to the year before? What could account for that change? And what team(s) are the most interesting here?
 
-**Answer** YOUR ANSWER HERE
+**Answer** Houston had the most growth in 2023 compared to the year before. Some factors that could account for that change are having an exceptional 2022 season, a higher enrollment, new star players or other changes. Oklahoma is interesting because despite being a Big 12 school, they saw a decline in attendance and not a growth.
 
 ## Back to women's soccer
 
@@ -95,15 +96,27 @@ Previously we calculated totals for shots attempted and shots on goal for each t
 
 ```{r}
 matches_2024 |> 
-  group_by(REPLACE WITH GROUP_BY) |> 
+  group_by(team) |> 
   summarise(
-    total_on_goal = REPLACE WITH FORMULA,
-    total_goals = REPLACE WITH FORMULA
+    total_on_goal = sum(so_g),
+    total_goals = sum(goals)
   ) |> 
-  mutate(percent = REPLACE WITH FORMULA) |> 
+  mutate(percent = (total_goals/total_on_goal)*100) |> 
+  arrange(desc(percent))
+```
+
+```{r}
+matches_2024 |> 
+  group_by(team) |> 
+  summarise(
+    total_on_goal = sum(so_g),
+    total_goals = sum(goals)
+  ) |> 
+  filter(total_on_goal>=20) |>
+  mutate(percent = (total_goals/total_on_goal)*100) |> 
   arrange(desc(percent))
 ```
 
 What stands out to you here? Describe that below. Would you narrow down the results to certain teams based on the data? If so, do that in the code and explain why you did it below. Finally, what's the most interesting result to you that could be a story?
 
-**Answer** YOUR ANSWER HERE
+**Answer** One thing that stands out in the first table is that some of the teams with the highest percentage had a dozen or less shots on goal while others had a few dozen. While the percentage is important to look at to be able to compare across all teams, I would also want to narrow down results by teams that had over about 20 shots on goal to see how their percentages compare to each other. One very interesting result from this analysis is that Arkansas had over 80 shots on goal, which is much more than any team with close percentages. It would be interesting to see how this number compares to Arkansas' stats in previous seasons to see if this is a norm for them or if this season is exceptional.
