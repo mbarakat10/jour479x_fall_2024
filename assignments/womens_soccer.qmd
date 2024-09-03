@@ -79,3 +79,39 @@ matches_2024 |>
   ) |>
   arrange(desc(corner_diff))
 ```
+
+```{r}
+matches_2024 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv")
+
+matches_2024 <- matches_2024 |>
+  mutate(corner_ratio = corners/defensive_corners)
+
+matches_2024 |>
+  filter(corner_ratio>= 4.0) |>
+  group_by(outcome) |>
+  summarise(
+    count = n()
+  )
+```
+
+```{r}
+matches_2024 |>
+  filter(team_id==392) |>
+  group_by(team) |> 
+  summarise(
+    total_shots = sum(sh_att),
+    shots_on_goal = sum(so_g),
+    pct_goal_shots = shots_on_goal/total_shots
+  )
+```
+
+```{r}
+matches_2024 |>
+  group_by(team) |> 
+  summarise(
+    total_shots = sum(sh_att),
+    shots_on_goal = sum(so_g),
+    pct_goal_shots = shots_on_goal/total_shots
+  ) |>
+  arrange(desc(pct_goal_shots))
+```
