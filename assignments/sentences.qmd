@@ -1,0 +1,37 @@
+```{r}
+library(tidyverse)
+```
+
+```{r}
+matches_2023 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2023.csv")
+
+matches_2024 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv")
+```
+
+```{r}
+matches_2023 |>
+  filter(team == 'Maryland Terrapins, Terps') |>
+  group_by(team) |>
+  summarize(
+    total_sog = sum(so_g),
+    total_shatt = sum(sh_att)
+  ) |>
+  mutate(SoGPct = (total_sog/total_shatt)*100
+)
+```
+
+```{r}
+matches_2024 |>
+  filter(team == 'Maryland Terrapins, Terps') |>
+  group_by(team) |>
+  summarize(
+    total_sog = sum(so_g),
+    total_shatt = sum(sh_att)
+  ) |>
+  mutate(SoGPct = (total_sog/total_shatt)*100
+)
+```
+
+**Paragraph**:
+
+The Maryland women's soccer team is shooting more shots on goal out of total shots attempted this season compared to the previous year. Last season, out of the team's total shots, about 42.8% were on goal. In the team's first six games of this season, the team has shot almost 48% of their shots on goal, with nearly half of their attempts on goal.
