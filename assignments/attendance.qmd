@@ -42,7 +42,7 @@ Finally, we'll add a percentage change column to that dataframe (remember, it's 
 ```{r}
 attendance_wide <- attendance_wide |> 
   mutate(percent = (`2023`-`2019`)/`2019`*100) |>
-  arrange(percent)
+  arrange(desc(percent))
 
 attendance_wide
 ```
