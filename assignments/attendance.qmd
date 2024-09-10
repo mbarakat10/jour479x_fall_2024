@@ -17,8 +17,12 @@ Using the tidyverse's `pivot_longer` function, turn the currently wide data into
 ```{r}
 attendance_longer <- attendance |> pivot_longer(cols = starts_with("20"), names_to = "Year", values_to = "Attendance")
 
-attendance_longer |> filter(Attendance >= 500000)
-
+attendance_longer |> filter(Attendance >= 500000) |> 
+  group_by(Institution) |>
+    summarise(
+      years = n()
+    ) |>
+  filter(years < 5)
 ```
 
 Let's try to figure out whether football attendance has returned to "normal" by 2023, defining "normal" as 2019 figures. For that we'll need to isolate those two years using `filter()` and get rid of any NAs:
@@ -36,9 +40,15 @@ attendance_wide <- attendance_two_years |> pivot_wider(names_from = Year, values
 Finally, we'll add a percentage change column to that dataframe (remember, it's (New-Old)/Old) and arrange it to see the results.
 
 ```{r}
-attendance_wide <- attendance_wide |> mutate(percent = (`2023`-`2019`)/`2019`*100)
+attendance_wide <- attendance_wide |> 
+  mutate(percent = (`2023`-`2019`)/`2019`*100) |>
+  arrange(percent)
+
+attendance_wide
 ```
 
 Some of these clearly are influenced by performance on the field. Below, describe the most interesting results (positive or negative) and what you think might be going on with them. Feel free to do some googling and describe what other data would be helpful to clarify what the best stories here might be. What surprises you about these results?
 
-**ANSWER**
+**ANSWER:**
+
+One of the greatest percent changes in attendance was seen in Houston, which almost doubled its attendance from 2019 to 2023. It not only went back to "normal" pre-COVID times, it saw a great increase. The next greatest percent change was almost 30 percentage points less, so no other school experienced such a great change as in Houston. With little knowledge of Houston's football program history, there may have been some high-level recruits, coaching changes or better advertising, which may have led to this change. It would be interesting to take a larger look at Houston's enrollment rates as well to see if that can be seen in this game attendance data. Another interesting point in this data is that Northwestern has not returned to "normal" and still has less attendance than they did in 2019. They are the only Big Ten school in the bottom ten schools with lowest percentage change. I would be interested in comparing their attendance over these years with their performances and season records to see if this decrease in attendance can be tied to a decrease in performance as well.
