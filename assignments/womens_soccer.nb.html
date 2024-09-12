@@ -1760,17 +1760,6 @@ questions</a>. First, let’s load the tidyverse library:</p>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
 <pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogcGFja2FnZSDigJh0aWR5dmVyc2XigJkgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiA0LjMuM1dhcm5pbmc6IHBhY2thZ2Ug4oCYZ2dwbG90MuKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDQuMy4z4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuNCAgICAg4pyUIHJlYWRyICAgICAyLjEuNVxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMVxu4pyUIGdncGxvdDIgICAzLjUuMSAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMyAgICAg4pyUIHRpZHlyICAgICAxLjMuMVxu4pyUIHB1cnJyICAgICAxLjAuMiAgICAg4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlX2NvbmZsaWN0cygpIOKUgOKUgFxu4pyWIGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbuKcliBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG7ihLkgVXNlIHRoZSBcdTAwMWJdODs7aHR0cDovL2NvbmZsaWN0ZWQuci1saWIub3JnL1x1MDAwN2NvbmZsaWN0ZWQgcGFja2FnZVx1MDAxYl04OztcdTAwMDcgdG8gZm9yY2UgYWxsIGNvbmZsaWN0cyB0byBiZWNvbWUgZXJyb3JzXG4ifQ== -->
-<pre><code>Warning: package ‘tidyverse’ was built under R version 4.3.3Warning: package ‘ggplot2’ was built under R version 4.3.3── Attaching core tidyverse packages ──────────────────────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     ── Conflicts ────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We’ll want to start with 2023 match data, which is located in <a href="https://github.com/dwillis/NCAAWomensSoccerData">this GitHub
@@ -1781,15 +1770,6 @@ repository</a>. We can load the match data directly from GitHub using
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDIzIDwtIHJlYWRfY3N2KFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjMuY3N2XCIpXG5gYGAifQ== -->
 <pre class="r"><code>matches_2023 &lt;- read_csv(&quot;https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2023.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogNjM2NSBDb2x1bW5zOiA1NuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAgICg3KTogdGVhbSwgb3Bwb25lbnQsIGhvbWVfYXdheSwgb3V0Y29tZSwgZ29hbGllX21pbl9wbHlkLCBkZWZlbnNpdmVfZ29hbGllX21pbl9wbHlkLCB0ZWFtX2lkXG5kYmwgICg0OCk6IHRlYW1fc2NvcmUsIG9wcG9uZW50X3Njb3JlLCBvdmVydGltZSwgZ2FtZXMsIGdvYWxzLCBhc3Npc3RzLCBzaF9hdHQsIHNvX2csIGZvdWxzLCByZWRfY2FyZHMsIC4uLlxuZGF0ZSAgKDEpOiBkYXRlXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
-<pre><code>Rows: 6365 Columns: 56── Column specification ────────────────────────────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr   (7): team, opponent, home_away, outcome, goalie_min_plyd, defensive_goalie_min_plyd, team_id
-dbl  (48): team_score, opponent_score, overtime, games, goals, assists, sh_att, so_g, fouls, red_cards, ...
-date  (1): date
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Let’s take a look at this data to see what it contains, using
@@ -1881,20 +1861,12 @@ o</strong></li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDI0IDwtIHJlYWRfY3N2KFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code>matches_2024 &lt;- read_csv(&quot;https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTM0MSBDb2x1bW5zOiAzMuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAgICg0KTogdGVhbSwgb3Bwb25lbnQsIGhvbWVfYXdheSwgb3V0Y29tZVxuZGJsICAoMjcpOiB0ZWFtX3Njb3JlLCBvcHBvbmVudF9zY29yZSwgb3ZlcnRpbWUsIGdhbWVzLCBnb2FscywgYXNzaXN0cywgcG9pbnRzLCBzaF9hdHQsIHNvX2csIGZvdWxzLCByZWQuLi5cbmRhdGUgICgxKTogZGF0ZVxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
-<pre><code>Rows: 1341 Columns: 32── Column specification ────────────────────────────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr   (4): team, opponent, home_away, outcome
-dbl  (27): team_score, opponent_score, overtime, games, goals, assists, points, sh_att, so_g, fouls, red...
-date  (1): date
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDI0IHw+XG4gIGdyb3VwX2J5KHRlYW0pIHw+IGZpbHRlcih0ZWFtX2lkPT0zOTIpIHw+XG4gIHN1bW1hcmlzZShcbiAgICB0b3RhbF9zaG90cyA9IHN1bShzaF9hdHQpLFxuICAgIHNob3RzX29uX2dvYWwgPSBzdW0oc29fZyksXG4gICAgcGN0X2dvYWxfc2hvdHMgPSBzaG90c19vbl9nb2FsL3RvdGFsX3Nob3RzXG4gIClcbmBgYCJ9 -->
-<pre class="r"><code>matches_2024 |&gt;
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDI0IDwtIHJlYWRfY3N2KFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2XCIpXG5cblxuXG5tYXRjaGVzXzIwMjQgfD5cbiAgZ3JvdXBfYnkodGVhbSkgfD4gZmlsdGVyKHRlYW1faWQ9PTM5MikgfD5cbiAgc3VtbWFyaXNlKFxuICAgIHRvdGFsX3Nob3RzID0gc3VtKHNoX2F0dCksXG4gICAgc2hvdHNfb25fZ29hbCA9IHN1bShzb19nKSxcbiAgICBwY3RfZ29hbF9zaG90cyA9IHNob3RzX29uX2dvYWwvdG90YWxfc2hvdHNcbiAgKVxuYGBgIn0= -->
+<pre class="r"><code>matches_2024 &lt;- read_csv(&quot;https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv&quot;)
+
+
+
+matches_2024 |&gt;
   group_by(team) |&gt; filter(team_id==392) |&gt;
   summarise(
     total_shots = sum(sh_att),
@@ -1902,13 +1874,6 @@ date  (1): date
     pct_goal_shots = shots_on_goal/total_shots
   )</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDQiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFRUFUvRE1CQzlKRTVRZzFLUW1OajRBU1FMQ0xIQmdDb3hzRlJGNmhhWnhLUVJxUjNaTGg4Yi80U2Z4cDlnYmprN3R0VG1GQ3Z2dmJ2VDNiMzV3L0lxWGFZQUVBR0pRb2hpaEJBL0wyYjVMUUFKa1FSQVlHTCtuMWgwaG9EZ085MUxuRDlSK2RWUlhsOHNtSlMwYjdtNk5MQlhtSnlhd3Z2Wk43Z1krQTBjOEx2Zng3OGYvRVlUWTA3WFRMbHB4SWxFTTdwMitGZ0xUYnRTcllSV1Rzb3NLUVV2RzBFN0owNzdTbHZ1U2cvSFRLVDRLUHlvREY5b3R0MWhqUGVwT3FyOFBsNU1hNnBwOFNxeEg5bDIxSElrZXQwS2prMmhzUzRaTlFkeUpKeHN1Tm1renF2VmhyL2wxNk4wMVBQR3pMVFNFSm5Ed1I0bXd4Ymh6clVucmoxaHZHazU4K2QwOUlWNWk2S2F2WHUzMEE5clI5SExsbXQvSjZxcXNJWjdwUktkVit6bHNQMEhrazBOTUU4Q0FBQT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["team"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total_shots"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["shots_on_goal"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["pct_goal_shots"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Maryland Terrapins, Terps","2":"45","3":"22","4":"0.4888889"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="2" style="list-style-type: decimal">
@@ -2099,8 +2064,70 @@ matches_2024 |&gt;
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>9/12/2024</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDIzIDwtIG1hdGNoZXNfMjAyMyB8PiBtdXRhdGUodG90YWxfZ29hbHMgPSBnb2FscytkZWZlbnNpdmVfZ29hbHMpXG5cbm1hdGNoZXNfMjAyNCA8LSBtYXRjaGVzXzIwMjQgfD4gbXV0YXRlKHRvdGFsX2dvYWxzID0gZ29hbHMrZGVmZW5zaXZlX2dvYWxzKVxuXG5yZXN1bHQgPC0gdC50ZXN0KG1hdGNoZXNfMjAyMyR0b3RhbF9nb2FscywgbWF0Y2hlc18yMDI0JHRvdGFsX2dvYWxzLCBhbHRlcm5hdGl2ZT1cInR3by5zaWRlZFwiLCB2YXIuZXF1YWw9VFJVRSlcblxucHJpbnQocmVzdWx0KVxuYGBgIn0= -->
+<pre class="r"><code>matches_2023 &lt;- matches_2023 |&gt; mutate(total_goals = goals+defensive_goals)
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvbWVuJ3MgU29jY2VyIERhdGEiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpXZSdsbCB1c2UgdGhpcyBub3RlYm9vayB0byBleHBsb3JlIHNvbWUgTkNBQSB3b21lbidzIHNvY2NlciBkYXRhIGFuZCBbb3VyIHF1ZXN0aW9uc10oaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWtUU3JubDFVUm1jZXhJV0xETVdxRG5wM3EtYzJPUzQ1dWlmbmhqcDEwbjQvZWRpdCNnaWQ9MCkuIEZpcnN0LCBsZXQncyBsb2FkIHRoZSB0aWR5dmVyc2UgbGlicmFyeToNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQpXZSdsbCB3YW50IHRvIHN0YXJ0IHdpdGggMjAyMyBtYXRjaCBkYXRhLCB3aGljaCBpcyBsb2NhdGVkIGluIFt0aGlzIEdpdEh1YiByZXBvc2l0b3J5XShodHRwczovL2dpdGh1Yi5jb20vZHdpbGxpcy9OQ0FBV29tZW5zU29jY2VyRGF0YSkuIFdlIGNhbiBsb2FkIHRoZSBtYXRjaCBkYXRhIGRpcmVjdGx5IGZyb20gR2l0SHViIHVzaW5nIGByZWFkX2NzdmA6DQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDIzIDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZHdpbGxpcy9OQ0FBV29tZW5zU29jY2VyRGF0YS9tYWluL2RhdGEvbmNhYV93b21lbnNfc29jY2VyX21hdGNoc3RhdHNfMjAyMy5jc3YiKQ0KYGBgDQoNCkxldCdzIHRha2UgYSBsb29rIGF0IHRoaXMgZGF0YSB0byBzZWUgd2hhdCBpdCBjb250YWlucywgdXNpbmcgYGhlYWRgIGFuZCBgZ2xpbXBzZWA6DQoNCmBgYHtyfQ0KaGVhZChtYXRjaGVzXzIwMjMpDQpnbGltcHNlKG1hdGNoZXNfMjAyMykNCmBgYA0KDQpOb3csIG9udG8gdGhlIHF1ZXN0aW9ucyB1c2luZyBhZ2dyZWdhdGVzLCB3aGljaCBtZWFucyBgZ3JvdXBfYnlgIGFuZCBgc3VtbWFyaXplYDoNCg0KMS4gIEhvdyBtYW55IHNob3RzIGluIHRvdGFsIGhhcyBNYXJ5bGFuZCBhdHRlbXB0ZWQgYW5kIGhvdyBtYW55IGhhdmUgYmVlbiBvbiBnb2FsPyBDYWxjdWxhdGUgYSBwZXJjZW50YWdlIG9mIHNob3RzIG9uIGdvYWwuICoqTWFyeWxhbmQgaGFzIGF0dGVtcHRlZCA0NSBzaG90cyB3aXRoIDIyIG9uIGdvYWwsIGdpdmluZyBhIHBlcmNlbnRhZ2Ugb2YgYWJvdXQgNDklIG8qKg0KDQpgYGB7cn0NCm1hdGNoZXNfMjAyNCA8LSByZWFkX2NzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2IikNCg0KbWF0Y2hlc18yMDI0IHw+DQogIGdyb3VwX2J5KHRlYW0pIHw+IGZpbHRlcih0ZWFtX2lkPT0zOTIpIHw+DQogIHN1bW1hcmlzZSgNCiAgICB0b3RhbF9zaG90cyA9IHN1bShzaF9hdHQpLA0KICAgIHNob3RzX29uX2dvYWwgPSBzdW0oc29fZyksDQogICAgcGN0X2dvYWxfc2hvdHMgPSBzaG90c19vbl9nb2FsL3RvdGFsX3Nob3RzDQogICkNCmBgYA0KDQoyLiAgV2hhdCBhYm91dCB0aGUgc2FtZSBzaG90IHN0YXRzIGZyb20gbGFzdCBzZWFzb24ncyBmaXJzdCBmb3VyIGdhbWVzPyBZb3UnbGwgbmVlZCB0byBsb2FkIHRoZSBtYXRjaGVzIGZyb20gMjAyMiAtIGp1c3QgY2hhbmdlIHRoZSBzZWFzb24gaW4gdGhlIFVSTCAtIGFuZCBmaWx0ZXIgYnkgZGF0ZSB0byBmaW5kIHRoZSBmaXJzdCBmb3VyIGdhbWVzLiAqKlRoZSBmaXJzdCBmb3VyIGdhbWVzIG9mIHRoZSBzZWFzb24gd2VyZSBwbGF5ZWQgYnkgdGhlIHRlYW1zIGluIHRoZSB0YWJsZSB3aXRoIHRoZSBBa3JvbiBaaXBzIGhhdmluZyB0aGUgaGlnaGVzdCBwZXJjZW50YWdlIG9mIHNob3RzIG9uIGdvYWwgaW4gdGhlaXIgZ2FtZSB3aXRoIDUgb2YgNyBzaG90cyBvbiB0YXJnZXQuKioNCg0KYGBge3J9DQptYXRjaGVzXzIwMjIgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9kd2lsbGlzL05DQUFXb21lbnNTb2NjZXJEYXRhL21haW4vZGF0YS9uY2FhX3dvbWVuc19zb2NjZXJfbWF0Y2hzdGF0c18yMDIyLmNzdiIpDQoNCm1hdGNoZXNfMjAyMiB8Pg0KICBhcnJhbmdlKGRhdGUpIHw+IHNsaWNlKDE6NCkgfD4NCiAgZ3JvdXBfYnkodGVhbSkgfD4NCiAgIHN1bW1hcmlzZSgNCiAgICB0b3RhbF9zaG90cyA9IHN1bShzaF9hdHQpLA0KICAgIHNob3RzX29uX2dvYWwgPSBzdW0oc29fZyksDQogICAgcGN0X2dvYWxfc2hvdHMgPSBzaG90c19vbl9nb2FsL3RvdGFsX3Nob3RzDQogICkNCg0KYGBgDQoNCjMuICBXaGF0IGFib3V0IGRyYXdzIC0gTWFyeWxhbmQgc3RhcnRlZCAyMDIyIHdpdGggNCB0aWVzLiBIYXZlIGFueSBvdGhlciB0ZWFtcyBoYWQgYXMgbWFueSB0aGlzIHNlYXNvbj8gKipZZXMsIHNldmVyYWwgdGVhbXMgaGF2ZSBoYWQgbW9yZSB0aGFuIDQgZHJhd3Mgd2l0aCB0d28gdGVhbXMgYWxyZWFkeSBoYXZpbmcgNi4qKg0KDQpgYGB7cn0NCm1hdGNoZXNfMjAyNCA8LSByZWFkX2NzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2IikNCg0KbWF0Y2hlc18yMDI0IHw+DQogIGdyb3VwX2J5KHRlYW0sIG91dGNvbWUgPSAnRHJhdycpIHw+DQogIHN1bW1hcmlzZSgNCiAgICBjb3VudCA9IG4oKQ0KICApIHw+DQogIGFycmFuZ2UoZGVzYyhjb3VudCkpDQpgYGANCg0KNC4gIEhvdyBtYW55IHRvdGFsIGNvcm5lciBraWNrcyBoYXMgTWFyeWxhbmQgaGFkIHNvIGZhciBhbmQgaG93IG1hbnkgaGF2ZSBpdHMgb3Bwb25lbnRzIGhhdmU/IENhbGN1bGF0ZSB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZSB0d28gdG90YWxzIGZvciBldmVyeSB0ZWFtLiAqKk1hcnlsYW5kIGhhcyBoYWQgMTggY29ybmVycyB0aGlzIHNlYXNvbiB3aGlsZSB0aGVpciBvcHBvbmVudHMgaGF2ZSBoYWQgMjMsIG1lYW5pbmcgdGhlaXIgb3Bwb25lbnRzIGhhdmUgaGFkIDUgbW9yZSB0aGFuIHRoZW0gc28gZmFyIHRoaXMgc2Vhc29uLiBWaXJnaW5pYSBUZWNoIGhhcyB0aGUgZ3JlYXRlc3QgY29ybmVyIGRpZmZlcmVuY2Ugc28gZmFyIG9mIDQyIHdpdGggNDggdG90YWwgY29ybmVycyBhbmQgdGhlaXIgb3Bwb25lbnRzIG9ubHkgaGF2aW5nIDYuKioNCg0KYGBge3J9DQptYXRjaGVzXzIwMjQgfD4NCiAgZ3JvdXBfYnkodGVhbSkgfD4NCiAgc3VtbWFyaXNlKA0KICAgIHRvdGFsX2Nvcm5lcnMgPSBzdW0oY29ybmVycyksDQogICAgb3BwX2Nvcm5lcnMgPSBzdW0oZGVmZW5zaXZlX2Nvcm5lcnMpLA0KICAgIGNvcm5lcl9kaWZmID0gdG90YWxfY29ybmVycyAtIG9wcF9jb3JuZXJzDQogICkgfD4NCiAgYXJyYW5nZShkZXNjKGNvcm5lcl9kaWZmKSkNCmBgYA0KDQpgYGB7cn0NCm1hdGNoZXNfMjAyNCA8LSByZWFkX2NzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2IikNCg0KbWF0Y2hlc18yMDI0IDwtIG1hdGNoZXNfMjAyNCB8Pg0KICBtdXRhdGUoY29ybmVyX3JhdGlvID0gY29ybmVycy9kZWZlbnNpdmVfY29ybmVycykNCg0KbWF0Y2hlc18yMDI0IHw+DQogIGZpbHRlcihjb3JuZXJfcmF0aW8+PSA0LjApIHw+DQogIGdyb3VwX2J5KG91dGNvbWUpIHw+DQogIHN1bW1hcmlzZSgNCiAgICBjb3VudCA9IG4oKQ0KICApDQpgYGANCg0KYGBge3J9DQptYXRjaGVzXzIwMjQgfD4NCiAgZmlsdGVyKHRlYW1faWQ9PTM5MikgfD4NCiAgZ3JvdXBfYnkodGVhbSkgfD4gDQogIHN1bW1hcmlzZSgNCiAgICB0b3RhbF9zaG90cyA9IHN1bShzaF9hdHQpLA0KICAgIHNob3RzX29uX2dvYWwgPSBzdW0oc29fZyksDQogICAgcGN0X2dvYWxfc2hvdHMgPSBzaG90c19vbl9nb2FsL3RvdGFsX3Nob3RzDQogICkNCmBgYA0KDQpgYGB7cn0NCm1hdGNoZXNfMjAyNCB8Pg0KICBncm91cF9ieSh0ZWFtKSB8PiANCiAgc3VtbWFyaXNlKA0KICAgIHRvdGFsX3Nob3RzID0gc3VtKHNoX2F0dCksDQogICAgc2hvdHNfb25fZ29hbCA9IHN1bShzb19nKSwNCiAgICBwY3RfZ29hbF9zaG90cyA9IHNob3RzX29uX2dvYWwvdG90YWxfc2hvdHMNCiAgKSB8Pg0KICBhcnJhbmdlKGRlc2MocGN0X2dvYWxfc2hvdHMpKQ0KYGBgDQo=</div>
+matches_2024 &lt;- matches_2024 |&gt; mutate(total_goals = goals+defensive_goals)
+
+result &lt;- t.test(matches_2023$total_goals, matches_2024$total_goals, alternative=&quot;two.sided&quot;, var.equal=TRUE)
+
+print(result)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBtYXRjaGVzXzIwMjMkdG90YWxfZ29hbHMgYW5kIG1hdGNoZXNfMjAyNCR0b3RhbF9nb2Fsc1xudCA9IC00LjExMDQsIGRmID0gODU1NSwgcC12YWx1ZSA9IDMuOTg3ZS0wNVxuYWx0ZXJuYXRpdmUgaHlwb3RoZXNpczogdHJ1ZSBkaWZmZXJlbmNlIGluIG1lYW5zIGlzIG5vdCBlcXVhbCB0byAwXG45NSBwZXJjZW50IGNvbmZpZGVuY2UgaW50ZXJ2YWw6XG4gLTAuMjgwNjc0OTUgLTAuMDk5NDExNzVcbnNhbXBsZSBlc3RpbWF0ZXM6XG5tZWFuIG9mIHggbWVhbiBvZiB5IFxuIDIuNzY0MzM2ICAyLjk1NDM4MCBcbiJ9 -->
+<pre><code>
+    Two Sample t-test
+
+data:  matches_2023$total_goals and matches_2024$total_goals
+t = -4.1104, df = 8555, p-value = 3.987e-05
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.28067495 -0.09941175
+sample estimates:
+mean of x mean of y 
+ 2.764336  2.954380 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The null hypothesis is not true. There is a significant difference in
+the average number of goals scored in 2023 and 2024 because the p-value
+is much smaller than 0.05. Scoring is up with a mean of 2.95 in 2024 and
+2.76 in 2023.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hlc18yMDIzIDwtIG1hdGNoZXNfMjAyMyB8PiBmaWx0ZXIodGVhbSA9PSAnTWFyeWxhbmQgVGVycmFwaW5zLCBUZXJwcycpIHw+IG11dGF0ZSh0b3RhbF9nb2FscyA9IGdvYWxzK2RlZmVuc2l2ZV9nb2FscylcblxubWF0Y2hlc18yMDI0IDwtIG1hdGNoZXNfMjAyNCB8PiBmaWx0ZXIodGVhbSA9PSAnTWFyeWxhbmQgVGVycmFwaW5zLCBUZXJwcycpIHw+IG11dGF0ZSh0b3RhbF9nb2FscyA9IGdvYWxzK2RlZmVuc2l2ZV9nb2FscylcblxucmVzdWx0IDwtIHQudGVzdChtYXRjaGVzXzIwMjMkdG90YWxfZ29hbHMsIG1hdGNoZXNfMjAyNCR0b3RhbF9nb2FscywgYWx0ZXJuYXRpdmU9XCJ0d28uc2lkZWRcIiwgdmFyLmVxdWFsPVRSVUUpXG5cbnByaW50KHJlc3VsdClcbmBgYCJ9 -->
+<pre class="r"><code>matches_2023 &lt;- matches_2023 |&gt; filter(team == &#39;Maryland Terrapins, Terps&#39;) |&gt; mutate(total_goals = goals+defensive_goals)
+
+matches_2024 &lt;- matches_2024 |&gt; filter(team == &#39;Maryland Terrapins, Terps&#39;) |&gt; mutate(total_goals = goals+defensive_goals)
+
+result &lt;- t.test(matches_2023$total_goals, matches_2024$total_goals, alternative=&quot;two.sided&quot;, var.equal=TRUE)
+
+print(result)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBtYXRjaGVzXzIwMjMkdG90YWxfZ29hbHMgYW5kIG1hdGNoZXNfMjAyNCR0b3RhbF9nb2Fsc1xudCA9IC0wLjQ3ODI3LCBkZiA9IDI0LCBwLXZhbHVlID0gMC42MzY4XG5hbHRlcm5hdGl2ZSBoeXBvdGhlc2lzOiB0cnVlIGRpZmZlcmVuY2UgaW4gbWVhbnMgaXMgbm90IGVxdWFsIHRvIDBcbjk1IHBlcmNlbnQgY29uZmlkZW5jZSBpbnRlcnZhbDpcbiAtMS45MTk0NDAgIDEuMTk3MjE4XG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbiAyLjM4ODg4OSAgMi43NTAwMDAgXG4ifQ== -->
+<pre><code>
+    Two Sample t-test
+
+data:  matches_2023$total_goals and matches_2024$total_goals
+t = -0.47827, df = 24, p-value = 0.6368
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -1.919440  1.197218
+sample estimates:
+mean of x mean of y 
+ 2.388889  2.750000 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Scoring is up a little, but the p-value is 0.64, so the null
+hypothesis is true and there is no significant difference in the average
+number of goals scored in 2023 and 2024 for Maryland.</p>
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvbWVuJ3MgU29jY2VyIERhdGEiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpXZSdsbCB1c2UgdGhpcyBub3RlYm9vayB0byBleHBsb3JlIHNvbWUgTkNBQSB3b21lbidzIHNvY2NlciBkYXRhIGFuZCBbb3VyIHF1ZXN0aW9uc10oaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWtUU3JubDFVUm1jZXhJV0xETVdxRG5wM3EtYzJPUzQ1dWlmbmhqcDEwbjQvZWRpdCNnaWQ9MCkuIEZpcnN0LCBsZXQncyBsb2FkIHRoZSB0aWR5dmVyc2UgbGlicmFyeToNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQpXZSdsbCB3YW50IHRvIHN0YXJ0IHdpdGggMjAyMyBtYXRjaCBkYXRhLCB3aGljaCBpcyBsb2NhdGVkIGluIFt0aGlzIEdpdEh1YiByZXBvc2l0b3J5XShodHRwczovL2dpdGh1Yi5jb20vZHdpbGxpcy9OQ0FBV29tZW5zU29jY2VyRGF0YSkuIFdlIGNhbiBsb2FkIHRoZSBtYXRjaCBkYXRhIGRpcmVjdGx5IGZyb20gR2l0SHViIHVzaW5nIGByZWFkX2NzdmA6DQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDIzIDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZHdpbGxpcy9OQ0FBV29tZW5zU29jY2VyRGF0YS9tYWluL2RhdGEvbmNhYV93b21lbnNfc29jY2VyX21hdGNoc3RhdHNfMjAyMy5jc3YiKQ0KYGBgDQoNCkxldCdzIHRha2UgYSBsb29rIGF0IHRoaXMgZGF0YSB0byBzZWUgd2hhdCBpdCBjb250YWlucywgdXNpbmcgYGhlYWRgIGFuZCBgZ2xpbXBzZWA6DQoNCmBgYHtyfQ0KaGVhZChtYXRjaGVzXzIwMjMpDQpnbGltcHNlKG1hdGNoZXNfMjAyMykNCmBgYA0KDQpOb3csIG9udG8gdGhlIHF1ZXN0aW9ucyB1c2luZyBhZ2dyZWdhdGVzLCB3aGljaCBtZWFucyBgZ3JvdXBfYnlgIGFuZCBgc3VtbWFyaXplYDoNCg0KMS4gIEhvdyBtYW55IHNob3RzIGluIHRvdGFsIGhhcyBNYXJ5bGFuZCBhdHRlbXB0ZWQgYW5kIGhvdyBtYW55IGhhdmUgYmVlbiBvbiBnb2FsPyBDYWxjdWxhdGUgYSBwZXJjZW50YWdlIG9mIHNob3RzIG9uIGdvYWwuICoqTWFyeWxhbmQgaGFzIGF0dGVtcHRlZCA0NSBzaG90cyB3aXRoIDIyIG9uIGdvYWwsIGdpdmluZyBhIHBlcmNlbnRhZ2Ugb2YgYWJvdXQgNDklIG8qKg0KDQpgYGB7cn0NCm1hdGNoZXNfMjAyNCA8LSByZWFkX2NzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2R3aWxsaXMvTkNBQVdvbWVuc1NvY2NlckRhdGEvbWFpbi9kYXRhL25jYWFfd29tZW5zX3NvY2Nlcl9tYXRjaHN0YXRzXzIwMjQuY3N2IikNCg0KDQoNCm1hdGNoZXNfMjAyNCB8Pg0KICBncm91cF9ieSh0ZWFtKSB8PiBmaWx0ZXIodGVhbV9pZD09MzkyKSB8Pg0KICBzdW1tYXJpc2UoDQogICAgdG90YWxfc2hvdHMgPSBzdW0oc2hfYXR0KSwNCiAgICBzaG90c19vbl9nb2FsID0gc3VtKHNvX2cpLA0KICAgIHBjdF9nb2FsX3Nob3RzID0gc2hvdHNfb25fZ29hbC90b3RhbF9zaG90cw0KICApDQpgYGANCg0KMi4gIFdoYXQgYWJvdXQgdGhlIHNhbWUgc2hvdCBzdGF0cyBmcm9tIGxhc3Qgc2Vhc29uJ3MgZmlyc3QgZm91ciBnYW1lcz8gWW91J2xsIG5lZWQgdG8gbG9hZCB0aGUgbWF0Y2hlcyBmcm9tIDIwMjIgLSBqdXN0IGNoYW5nZSB0aGUgc2Vhc29uIGluIHRoZSBVUkwgLSBhbmQgZmlsdGVyIGJ5IGRhdGUgdG8gZmluZCB0aGUgZmlyc3QgZm91ciBnYW1lcy4gKipUaGUgZmlyc3QgZm91ciBnYW1lcyBvZiB0aGUgc2Vhc29uIHdlcmUgcGxheWVkIGJ5IHRoZSB0ZWFtcyBpbiB0aGUgdGFibGUgd2l0aCB0aGUgQWtyb24gWmlwcyBoYXZpbmcgdGhlIGhpZ2hlc3QgcGVyY2VudGFnZSBvZiBzaG90cyBvbiBnb2FsIGluIHRoZWlyIGdhbWUgd2l0aCA1IG9mIDcgc2hvdHMgb24gdGFyZ2V0LioqDQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDIyIDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZHdpbGxpcy9OQ0FBV29tZW5zU29jY2VyRGF0YS9tYWluL2RhdGEvbmNhYV93b21lbnNfc29jY2VyX21hdGNoc3RhdHNfMjAyMi5jc3YiKQ0KDQptYXRjaGVzXzIwMjIgfD4NCiAgYXJyYW5nZShkYXRlKSB8PiBzbGljZSgxOjQpIHw+DQogIGdyb3VwX2J5KHRlYW0pIHw+DQogICBzdW1tYXJpc2UoDQogICAgdG90YWxfc2hvdHMgPSBzdW0oc2hfYXR0KSwNCiAgICBzaG90c19vbl9nb2FsID0gc3VtKHNvX2cpLA0KICAgIHBjdF9nb2FsX3Nob3RzID0gc2hvdHNfb25fZ29hbC90b3RhbF9zaG90cw0KICApDQoNCmBgYA0KDQozLiAgV2hhdCBhYm91dCBkcmF3cyAtIE1hcnlsYW5kIHN0YXJ0ZWQgMjAyMiB3aXRoIDQgdGllcy4gSGF2ZSBhbnkgb3RoZXIgdGVhbXMgaGFkIGFzIG1hbnkgdGhpcyBzZWFzb24/ICoqWWVzLCBzZXZlcmFsIHRlYW1zIGhhdmUgaGFkIG1vcmUgdGhhbiA0IGRyYXdzIHdpdGggdHdvIHRlYW1zIGFscmVhZHkgaGF2aW5nIDYuKioNCg0KYGBge3J9DQptYXRjaGVzXzIwMjQgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9kd2lsbGlzL05DQUFXb21lbnNTb2NjZXJEYXRhL21haW4vZGF0YS9uY2FhX3dvbWVuc19zb2NjZXJfbWF0Y2hzdGF0c18yMDI0LmNzdiIpDQoNCm1hdGNoZXNfMjAyNCB8Pg0KICBncm91cF9ieSh0ZWFtLCBvdXRjb21lID0gJ0RyYXcnKSB8Pg0KICBzdW1tYXJpc2UoDQogICAgY291bnQgPSBuKCkNCiAgKSB8Pg0KICBhcnJhbmdlKGRlc2MoY291bnQpKQ0KYGBgDQoNCjQuICBIb3cgbWFueSB0b3RhbCBjb3JuZXIga2lja3MgaGFzIE1hcnlsYW5kIGhhZCBzbyBmYXIgYW5kIGhvdyBtYW55IGhhdmUgaXRzIG9wcG9uZW50cyBoYXZlPyBDYWxjdWxhdGUgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiB0aGUgdHdvIHRvdGFscyBmb3IgZXZlcnkgdGVhbS4gKipNYXJ5bGFuZCBoYXMgaGFkIDE4IGNvcm5lcnMgdGhpcyBzZWFzb24gd2hpbGUgdGhlaXIgb3Bwb25lbnRzIGhhdmUgaGFkIDIzLCBtZWFuaW5nIHRoZWlyIG9wcG9uZW50cyBoYXZlIGhhZCA1IG1vcmUgdGhhbiB0aGVtIHNvIGZhciB0aGlzIHNlYXNvbi4gVmlyZ2luaWEgVGVjaCBoYXMgdGhlIGdyZWF0ZXN0IGNvcm5lciBkaWZmZXJlbmNlIHNvIGZhciBvZiA0MiB3aXRoIDQ4IHRvdGFsIGNvcm5lcnMgYW5kIHRoZWlyIG9wcG9uZW50cyBvbmx5IGhhdmluZyA2LioqDQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDI0IHw+DQogIGdyb3VwX2J5KHRlYW0pIHw+DQogIHN1bW1hcmlzZSgNCiAgICB0b3RhbF9jb3JuZXJzID0gc3VtKGNvcm5lcnMpLA0KICAgIG9wcF9jb3JuZXJzID0gc3VtKGRlZmVuc2l2ZV9jb3JuZXJzKSwNCiAgICBjb3JuZXJfZGlmZiA9IHRvdGFsX2Nvcm5lcnMgLSBvcHBfY29ybmVycw0KICApIHw+DQogIGFycmFuZ2UoZGVzYyhjb3JuZXJfZGlmZikpDQpgYGANCg0KYGBge3J9DQptYXRjaGVzXzIwMjQgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9kd2lsbGlzL05DQUFXb21lbnNTb2NjZXJEYXRhL21haW4vZGF0YS9uY2FhX3dvbWVuc19zb2NjZXJfbWF0Y2hzdGF0c18yMDI0LmNzdiIpDQoNCm1hdGNoZXNfMjAyNCA8LSBtYXRjaGVzXzIwMjQgfD4NCiAgbXV0YXRlKGNvcm5lcl9yYXRpbyA9IGNvcm5lcnMvZGVmZW5zaXZlX2Nvcm5lcnMpDQoNCm1hdGNoZXNfMjAyNCB8Pg0KICBmaWx0ZXIoY29ybmVyX3JhdGlvPj0gNC4wKSB8Pg0KICBncm91cF9ieShvdXRjb21lKSB8Pg0KICBzdW1tYXJpc2UoDQogICAgY291bnQgPSBuKCkNCiAgKQ0KYGBgDQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDI0IHw+DQogIGZpbHRlcih0ZWFtX2lkPT0zOTIpIHw+DQogIGdyb3VwX2J5KHRlYW0pIHw+IA0KICBzdW1tYXJpc2UoDQogICAgdG90YWxfc2hvdHMgPSBzdW0oc2hfYXR0KSwNCiAgICBzaG90c19vbl9nb2FsID0gc3VtKHNvX2cpLA0KICAgIHBjdF9nb2FsX3Nob3RzID0gc2hvdHNfb25fZ29hbC90b3RhbF9zaG90cw0KICApDQpgYGANCg0KYGBge3J9DQptYXRjaGVzXzIwMjQgfD4NCiAgZ3JvdXBfYnkodGVhbSkgfD4gDQogIHN1bW1hcmlzZSgNCiAgICB0b3RhbF9zaG90cyA9IHN1bShzaF9hdHQpLA0KICAgIHNob3RzX29uX2dvYWwgPSBzdW0oc29fZyksDQogICAgcGN0X2dvYWxfc2hvdHMgPSBzaG90c19vbl9nb2FsL3RvdGFsX3Nob3RzDQogICkgfD4NCiAgYXJyYW5nZShkZXNjKHBjdF9nb2FsX3Nob3RzKSkNCmBgYA0KDQo5LzEyLzIwMjQNCg0KYGBge3J9DQptYXRjaGVzXzIwMjMgPC0gbWF0Y2hlc18yMDIzIHw+IG11dGF0ZSh0b3RhbF9nb2FscyA9IGdvYWxzK2RlZmVuc2l2ZV9nb2FscykNCg0KbWF0Y2hlc18yMDI0IDwtIG1hdGNoZXNfMjAyNCB8PiBtdXRhdGUodG90YWxfZ29hbHMgPSBnb2FscytkZWZlbnNpdmVfZ29hbHMpDQoNCnJlc3VsdCA8LSB0LnRlc3QobWF0Y2hlc18yMDIzJHRvdGFsX2dvYWxzLCBtYXRjaGVzXzIwMjQkdG90YWxfZ29hbHMsIGFsdGVybmF0aXZlPSJ0d28uc2lkZWQiLCB2YXIuZXF1YWw9VFJVRSkNCg0KcHJpbnQocmVzdWx0KQ0KDQpgYGANCg0KVGhlIG51bGwgaHlwb3RoZXNpcyBpcyBub3QgdHJ1ZS4gVGhlcmUgaXMgYSBzaWduaWZpY2FudCBkaWZmZXJlbmNlIGluIHRoZSBhdmVyYWdlIG51bWJlciBvZiBnb2FscyBzY29yZWQgaW4gMjAyMyBhbmQgMjAyNCBiZWNhdXNlIHRoZSBwLXZhbHVlIGlzIG11Y2ggc21hbGxlciB0aGFuIDAuMDUuIFNjb3JpbmcgaXMgdXAgd2l0aCBhIG1lYW4gb2YgMi45NSBpbiAyMDI0IGFuZCAyLjc2IGluIDIwMjMuDQoNCmBgYHtyfQ0KbWF0Y2hlc18yMDIzIDwtIG1hdGNoZXNfMjAyMyB8PiBmaWx0ZXIodGVhbSA9PSAnTWFyeWxhbmQgVGVycmFwaW5zLCBUZXJwcycpIHw+IG11dGF0ZSh0b3RhbF9nb2FscyA9IGdvYWxzK2RlZmVuc2l2ZV9nb2FscykNCg0KbWF0Y2hlc18yMDI0IDwtIG1hdGNoZXNfMjAyNCB8PiBmaWx0ZXIodGVhbSA9PSAnTWFyeWxhbmQgVGVycmFwaW5zLCBUZXJwcycpIHw+IG11dGF0ZSh0b3RhbF9nb2FscyA9IGdvYWxzK2RlZmVuc2l2ZV9nb2FscykNCg0KcmVzdWx0IDwtIHQudGVzdChtYXRjaGVzXzIwMjMkdG90YWxfZ29hbHMsIG1hdGNoZXNfMjAyNCR0b3RhbF9nb2FscywgYWx0ZXJuYXRpdmU9InR3by5zaWRlZCIsIHZhci5lcXVhbD1UUlVFKQ0KDQpwcmludChyZXN1bHQpDQpgYGANCg0KU2NvcmluZyBpcyB1cCBhIGxpdHRsZSwgYnV0IHRoZSBwLXZhbHVlIGlzIDAuNjQsIHNvIHRoZSBudWxsIGh5cG90aGVzaXMgaXMgdHJ1ZSBhbmQgdGhlcmUgaXMgbm8gc2lnbmlmaWNhbnQgZGlmZmVyZW5jZSBpbiB0aGUgYXZlcmFnZSBudW1iZXIgb2YgZ29hbHMgc2NvcmVkIGluIDIwMjMgYW5kIDIwMjQgZm9yIE1hcnlsYW5kLg0K</div>
 
 
 

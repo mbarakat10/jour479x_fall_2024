@@ -29,6 +29,8 @@ Now, onto the questions using aggregates, which means `group_by` and `summarize`
 ```{r}
 matches_2024 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv")
 
+
+
 matches_2024 |>
   group_by(team) |> filter(team_id==392) |>
   summarise(
@@ -115,3 +117,30 @@ matches_2024 |>
   ) |>
   arrange(desc(pct_goal_shots))
 ```
+
+9/12/2024
+
+```{r}
+matches_2023 <- matches_2023 |> mutate(total_goals = goals+defensive_goals)
+
+matches_2024 <- matches_2024 |> mutate(total_goals = goals+defensive_goals)
+
+result <- t.test(matches_2023$total_goals, matches_2024$total_goals, alternative="two.sided", var.equal=TRUE)
+
+print(result)
+
+```
+
+The null hypothesis is not true. There is a significant difference in the average number of goals scored in 2023 and 2024 because the p-value is much smaller than 0.05. Scoring is up with a mean of 2.95 in 2024 and 2.76 in 2023.
+
+```{r}
+matches_2023 <- matches_2023 |> filter(team == 'Maryland Terrapins, Terps') |> mutate(total_goals = goals+defensive_goals)
+
+matches_2024 <- matches_2024 |> filter(team == 'Maryland Terrapins, Terps') |> mutate(total_goals = goals+defensive_goals)
+
+result <- t.test(matches_2023$total_goals, matches_2024$total_goals, alternative="two.sided", var.equal=TRUE)
+
+print(result)
+```
+
+Scoring is up a little, but the p-value is 0.64, so the null hypothesis is true and there is no significant difference in the average number of goals scored in 2023 and 2024 for Maryland.
