@@ -143,4 +143,4 @@ result <- t.test(matches_2023$total_goals, matches_2024$total_goals, alternative
 print(result)
 ```
 
-Scoring is up a little, but the p-value is 0.64, so the null hypothesis is true and there is no significant difference in the average number of goals scored in 2023 and 2024 for Maryland.
+Scoring is up a little, but the p-value is 0.64, so the null hypothesis is not rejected and there is no significant difference in the average number of goals scored in 2023 and 2024 for Maryland.
