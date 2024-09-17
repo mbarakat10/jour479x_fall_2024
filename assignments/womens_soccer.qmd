@@ -144,3 +144,40 @@ print(result)
 ```
 
 Scoring is up a little, but the p-value is 0.64, so the null hypothesis is not rejected and there is no significant difference in the average number of goals scored in 2023 and 2024 for Maryland.
+
+### Correlations
+
+```{r}
+library(tidyverse)
+
+correlations <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/main/data/ncaa_womens_soccer_matchstats_2024.csv")
+
+new_correlations <- correlations |>
+  mutate(
+    differential = goals - defensive_goals
+    )
+
+new_correlations |> 
+  summarise(correlation = cor(differential, fouls, method="pearson"))
+
+```
+
+```{r}
+new_correlations |> summarise(correlation = cor(differential, yellow_cards, method="pearson"))
+```
+
+```{r}
+
+fit <- lm(differential ~ fouls, data = new_correlations)
+summary(fit)
+
+(0.44111*9)+-2.48075 
+
+```
+
+```{r}
+net <- lm(differential ~ so_g, data = new_correlations|> filter(team=='Maryland Terrapins, Terps'))
+summary(net)
+```
+
+The Maryland women's soccer team is not more likely to win games based on their total shots on goal per game. They are likely shooting balls on target but ultimately not scoring enough to conclude that more shots on goal means a higher difference in their goals versus their opponents. (idk if I interpreted the data correctly please correct me if I'm wrong)
