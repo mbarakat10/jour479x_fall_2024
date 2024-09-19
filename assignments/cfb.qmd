@@ -3,7 +3,6 @@ library(tidyverse)
 library(cfbfastR)
 ```
 
-
 ```{r}
 plays_2023 <- cfbd_pbp_data(2023)
 ```
