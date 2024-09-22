@@ -1,6 +1,7 @@
 ```{r}
 library(tidyverse)
 library(cfbfastR)
+library(Hmisc)
 ```
 
 ```{r}
@@ -12,3 +13,59 @@ First-play problems: it appears that teams are inconsistent about how they defin
 ```{r}
 plays_2023 |> filter(drive_number == 1, play_number == 1, play_type != 'Kickoff') |> distinct(home, play_type)
 ```
+
+```{r}
+logs <- read_csv("https://dwillis.github.io/sports-data-files/footballlogs1123.csv")
+
+logs <- logs |> mutate(
+  Differential = TeamScore - OpponentScore)
+```
+
+```{r}
+differential_penalty <- lm(Differential ~ Penalties, data=logs)
+summary(differential_penalty)
+```
+
+The p-value is 0.0058, which means it is statistically significant and doesn't happen randomly. The r-squared value is very low, meaning the differential can't really be explained by the number of penalties. The residual standard error is also high, so this regression is not very useful.
+
+```{r}
+logs <- logs |> mutate(
+  Differential = TeamScore - OpponentScore,
+  NetYds = OffensiveYards - DefYards,
+  NetTurnovers = TotalTurnovers - DefTotalTurnovers)
+
+simplelogs <- logs |> select_if(is.numeric) |> select(-Game) |> select(Differential, NetYds, NetTurnovers, Penalties)
+```
+
+```{r}
+cormatrix <- rcorr(as.matrix(simplelogs))
+
+cormatrix$r
+```
+
+```{r}
+model1 <- lm(Differential ~ Penalties + NetYds + NetTurnovers, data=logs)
+summary(model1)
+```
+
+The p-value is much less than 0.05, meaning this is statistically significant and not random. The adjusted r-square is also almost 0.80, meaning it is very likely for factors like yards and turnovers to affect the score differential. The residual standard error is 10.5 so there is still a chance it predicts wrong, but it is about half the previous error meaning these factors can likely predict the differential with a higher confidence.
+
+```{r}
+filter_logs <- logs |> filter(Differential<=7)
+
+differential_penalty <- 
+  lm(Differential ~ Penalties, data=filter_logs)
+
+summary(differential_penalty)
+```
+
+When the differential is 7 points or less, the simple model is better with a lower residual standard error and a slightly higher adjusted R-squared.
+
+```{r}
+model1 <- lm(Differential ~ Penalties + NetYds + NetTurnovers, data=filter_logs)
+summary(model1)
+```
+
+When the differential is 7 points or less, the multiple regression model is slightly better with a slightly lower standard error. But this leads to a lower adjusted r-squared value and the same p-value.
+
+Overall, I have found that penalties alone don't impact the differential as the models have provent that penalties alone can't predict the differential at a high confidence. It's clear that other factors, in addition to penalties, are what can better predict differentials. This is interesting to me because I would want to look further into this for a story to see if team's overall penalty rates over various seasons has impacted not only point differentials but also results (win vs. loss). If penalties don't have this impact alone, what factors play a bigger part in differentials?
