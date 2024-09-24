@@ -55,3 +55,14 @@ mclaurin_2024 <- pbp_2024 |>
 ```
 
 In the first halves of the first three games of the season, Terry McLaurin has been targeted for 12 or less passes, with 6 in 2022, 12 in 2023 and 7 in 2024. He is being targeted only a handful of times in each first half. As a wide receiver, McLaurin should be getting the ball more often. This either speaks to him not positioning himself correctly or the team not running the best plays.
+
+```{r}
+pbp_2024 |> 
+  filter(!is.na(receiver)) |>
+  filter(week < 4, 
+         play_type == 'pass', 
+         game_half == 'Half1') |>
+  group_by(receiver, posteam) |> 
+  summarize(targets = n()) |> 
+  arrange(desc(targets))
+```
