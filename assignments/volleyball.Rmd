@@ -104,3 +104,11 @@ teamzscore |> select(team, TotalZscore, kills_zscore, errors_zscore, s_err_zscor
 ```
 
 Some of the highest performing teams in the NCAA in 2024 were Western Illinois and Wofford – two schools you would not consider. However, their total z-scores are high and well above the mean. This could mean they had exceptional stats (or there was an error in data collection.) Maryland is ranked around the middle of the table on the z-score scale with teams like Iowa State and Duke around it with z-scores around 0.2. The best story ideas here would be to see why the teams at the top of the table have z-scores so much higher than the majority of the other teams. Is there a specific statistic making teams stand out that other teams could learn from?
+
+**Volleyball Z-Score Writeup**
+
+In an analysis of women's volleyball so far this season, three unexpected teams stood out as statistical anomalies: Western Illinois, Wofford and Missouri State.
+
+Through a comparison of kills, errors and digs, the three teams stood out for a number of good and bad reasons.
+
+Despite having high service error statistics, which could mean defensive issues, the teams also excelled in digs. All three teams had above average dig statistics compared to similar teams.
