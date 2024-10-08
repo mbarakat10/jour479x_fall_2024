@@ -32,3 +32,10 @@ gymnast_results <- dbGetQuery(db, 'SELECT * FROM gymnast_results')
 meets <- dbGetQuery(db, 'SELECT * FROM meets')
 team_results <- dbGetQuery(db, 'SELECT * FROM team_results')
 ```
+
+Joining
+
+```{r}
+
+personal_results <- inner_join(gymnasts, gymnast_results, by='gymnast_id')
+```
