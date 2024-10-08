@@ -2,18 +2,6 @@
 
 There is a data set that exists with the NCAA women's gymnastics scores from the last ten years from the [Road to Nationals site.](https://roadtonationals.com/results/standings/) I downloaded it and put it into this folder. I think this data should have all of the scores I need to determine the events most impacting Maryland's performance and compare it to other teams in the conference.
 
-```{r}
-#Here I tried to read in the file with the data based on what I googled, but it's not working. 
-
-library(RSQLite)
-library(tidyverse)
-
-filename <- "gymternet.db"
-sqlite.driver <- dbDriver("SQLite")
-db <- dbConnect(sqlite.driver,
-                dbname = filename)
-```
-
 If this data does not work, most of the data is on Maryland gymnastics' site, but that would require more to clean up and combine into one set.
 
 Examples:
@@ -27,3 +15,20 @@ This story explains a meet where Maryland performed badly, which could help me i
 This story explains how Maryland managed to improve their performance after looking shaky mid-season. This could also be helpful in identifying certain events to look at when analyzing the data.
 
 I can't find any stories that do any kind of in-depth data analysis covering several years regarding Maryland's performance.
+
+```{r}
+library(RSQLite)
+library(tidyverse)
+library(DBI)
+
+db <- dbConnect(RSQLite::SQLite(), "gymternet.db")
+
+
+dbListTables(db)
+
+teams <- dbGetQuery(db, 'SELECT * FROM teams')
+gymnasts <- dbGetQuery(db, 'SELECT * FROM gymnasts')
+gymnast_results <- dbGetQuery(db, 'SELECT * FROM gymnast_results')
+meets <- dbGetQuery(db, 'SELECT * FROM meets')
+team_results <- dbGetQuery(db, 'SELECT * FROM team_results')
+```
