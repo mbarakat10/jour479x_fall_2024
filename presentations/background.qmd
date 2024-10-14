@@ -52,6 +52,7 @@ gymnast_results_by_meet <- inner_join(gymnast_results_by_meet, teams)
 I have created two larger tables to evaluate this data: a table with each individual gymnast's scores on each competition at every meet they competed at, and a separate table with every team's total scores at every meet from 2015 to 2024.
 
 ```{r}
+#Here we can see the years covered in the data.
 team_name_results |>
   group_by(year) |>
   summarise(
@@ -60,6 +61,7 @@ team_name_results |>
 ```
 
 ```{r}
+#Here we have the number of meets for each team in the data.
 team_name_results |>
   group_by(team_name) |>
   summarise(
@@ -68,6 +70,7 @@ team_name_results |>
 ```
 
 ```{r}
+#Here I narrowed down the Big Ten teams.
 big_ten_results <- team_name_results|> filter(team_name == "Michigan State" | team_name=="Michigan" |team_name=="Ohio State"|team_name=="Minnesota"|team_name=="Nebraska"|team_name=="Illinois"|team_name=="Penn State"|team_name=="Maryland"|team_name=="Iowa"|team_name=="Rutgers")
 
 big_ten_results |>
@@ -78,6 +81,7 @@ big_ten_results |>
 ```
 
 ```{r}
+#This data set is for Big Ten gymansts.
 big_ten_athletes <- gymnast_results_by_meet|> filter(team_name == "Michigan State" | team_name=="Michigan" |team_name=="Ohio State"|team_name=="Minnesota"|team_name=="Nebraska"|team_name=="Illinois"|team_name=="Penn State"|team_name=="Maryland"|team_name=="Iowa"|team_name=="Rutgers")
 ```
 
@@ -85,19 +89,19 @@ big_ten_athletes <- gymnast_results_by_meet|> filter(team_name == "Michigan Stat
 big_ten_avg <- big_ten_results|>
   group_by(team_name) |>
   summarise(
-    total_meets = n(),
-    total_scores = sum(team_score),
-    avg_score = sum(team_score)/total_meets
+    avg_score = mean(team_score)
   )
 ```
 
 ```{r}
+#This is a chart all the Big Ten team's total average scores from the entire time period.
 ggplot() +
   geom_bar(data=big_ten_avg, 
            aes(x=reorder(team_name, avg_score), weight=avg_score)) + coord_flip()
 ```
 
 ```{r}
+#These are Maryland's averages on each event and total for each season.
 md_results <- big_ten_results |>
   filter(team_name=="Maryland") |>
   group_by(year) |>
@@ -112,3 +116,22 @@ md_results <- big_ten_results |>
 
 md_results
 ```
+
+```{r}
+#This is to narrow down Maryland gymnasts' results and look at the team's averages on events and all-around by year.
+
+md_gymnasts <- gymnast_results_by_meet |> filter(team_name=="Maryland")
+
+md_gymnasts |>
+  group_by(year) |>
+  summarise(
+    avg_aa = mean(aa_score, na.rm=TRUE),
+    avg_vt = mean(vt_score, na.rm=TRUE),
+    avg_fx = mean(fx_score, na.rm=TRUE),
+    avg_bb = mean(bb_score, na.rm=TRUE),
+    avg_ub = mean(ub_score, na.rm=TRUE)
+    ) |>
+  arrange(desc(avg_aa))
+```
+
+So far, the main issue or weakness in analyzing this data is that gymnastics scores tend to be pretty close so differences between teams and events are not drastic. However, it has been fairly easy to analyze this data, and it will still be possible to answer my questions regardless of how close the numbers may be. That is just how the sport works.
