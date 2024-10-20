@@ -103,7 +103,9 @@ ggplot() +
 ```{r}
 #These are Maryland's averages on each event and total for each season.
 md_results <- big_ten_results |>
-  filter(team_name=="Maryland") |>
+  filter(team_name=="Maryland")
+
+md_results |>
   group_by(year) |>
   summarise(
     avg_bb = mean(bb_score),
@@ -113,8 +115,6 @@ md_results <- big_ten_results |>
     avg_total = mean(team_score)
   ) |>
   arrange(desc(avg_total))
-
-md_results
 ```
 
 ```{r}
@@ -135,3 +135,91 @@ md_gymnasts |>
 ```
 
 So far, the main issue or weakness in analyzing this data is that gymnastics scores tend to be pretty close so differences between teams and events are not drastic. However, it has been fairly easy to analyze this data, and it will still be possible to answer my questions regardless of how close the numbers may be. That is just how the sport works.
+
+**10/20/2024**
+
+**Question:** What event has most contributed to Maryland gymnastics' losses in recent seasons?
+
+```{r}
+md_avg_stack <- md_results |>
+  group_by(year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score)
+    ) 
+```
+
+```{r}
+md_avg_stack <- md_avg_stack |> 
+  pivot_longer(
+    cols=starts_with("avg"), 
+    names_to="event", 
+    values_to="score")
+```
+
+```{r}
+ggplot() + 
+  geom_bar(
+    data=md_avg_stack, 
+    aes(x=reorder(year, score), weight=score, fill=event)) + coord_flip()
+```
+
+```{r}
+big_ten_diff <- big_ten_results |>
+  group_by(team_name, year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score),
+    avg_total = mean(team_score)
+  )
+
+md_line <- md_results |>
+  group_by(year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score),
+    avg_total = mean(team_score)
+  )
+```
+
+```{r}
+ggplot() + 
+  geom_line(data=big_ten_diff, aes(x=year, y=avg_total, group=team_name), color="grey") + 
+  geom_line(data=md_line, aes(x=year, y=avg_total), color="red") +
+  scale_x_discrete(limits = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024))
+```
+
+That low outlier is Michigan, not sure what happened to them that season.
+
+**I'm realizing now another piece of data that would help me is knowing which meets were wins vs. losses (or their standings in the meets).**
+
+```{r}
+md_avg_stack |> arrange()
+```
+
+**By analyzing this data, it shows that the team's balance beam score has been the lowest average of all of the events from 2015 to 2024.**
+
+```{r}
+big_ten_beam <- big_ten_results |>
+  group_by(team_name) |>
+  summarise(
+    avg_bb = mean(bb_score)
+  ) |>
+  arrange() 
+
+big_ten_beam
+```
+
+**Maryland has the third lowest average balance beam score when compared to all other Big Ten Teams.**
+
+Questions for the future:
+
+What would be the best way to visualize the differences between team scores since they are so close?
+
+Maybe compare individual gymnasts too?
