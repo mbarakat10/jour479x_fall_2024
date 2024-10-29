@@ -1,0 +1,286 @@
+**Maryland gymnastics wobbly on balance beam**
+
+By Marwa Barakat
+
+My main question going into this project was: **What event has most contributed to Maryland gymnastics' losses in recent seasons, and how does that compare to other teams in the Big Ten?**
+
+I will get to the answer later, so follow along as I show you how I reached my conclusion.
+
+Luckily, there was already a data set that exists with the NCAA women's gymnastics scores from the last ten years (2015-2024) with data taken from the [Road to Nationals site](https://roadtonationals.com/results/standings/). I downloaded it and put it into this folder. I realized this data should have all of the scores I need to determine the events most impacting Maryland's performance and compare that to other teams in the conference.
+
+I couldn't find any stories that do a kind of in-depth data analysis covering several years regarding Maryland's gymanstics performance, so I was interested what the outcome would be.
+
+```{r}
+#Here I loaded in the data.
+library(RSQLite)
+library(tidyverse)
+library(DBI)
+
+db <- dbConnect(RSQLite::SQLite(), "gymternet.db")
+
+
+dbListTables(db)
+
+teams <- dbGetQuery(db, 'SELECT * FROM teams')
+gymnasts <- dbGetQuery(db, 'SELECT * FROM gymnasts')
+gymnast_results <- dbGetQuery(db, 'SELECT * FROM gymnast_results')
+meets <- dbGetQuery(db, 'SELECT * FROM meets')
+team_results <- dbGetQuery(db, 'SELECT * FROM team_results')
+```
+
+To join the tables to better analyze the results:
+
+```{r}
+name_results <- inner_join(gymnasts, gymnast_results, by='gymnast_id')
+
+team_name_results <- inner_join(teams, team_results, by='team_id')
+
+team_name_results <- inner_join(team_name_results, meets)
+
+gymnast_results_by_meet <- inner_join(name_results, meets)
+
+gymnast_results_by_meet <- inner_join(gymnast_results_by_meet, teams)
+```
+
+I have created two main dataframes to evaluate this data: a table with each individual gymnast's scores on each competition at every meet they competed at, and a separate table with every team's total scores at every meet from 2015 to 2024.
+
+```{r}
+#Here we can see the years covered in the data and how many team/meets there are per year.
+team_name_results |>
+  group_by(year) |>
+  summarise(
+    total = n()
+  )
+```
+
+```{r}
+#Here we have the number of meets for each team in the data.
+team_name_results |>
+  group_by(team_name) |>
+  summarise(
+    total = n()
+  )
+```
+
+```{r}
+#Here I narrowed down the Big Ten teams.
+big_ten_results <- team_name_results|> filter(team_name == "Michigan State" | team_name=="Michigan" |team_name=="Ohio State"|team_name=="Minnesota"|team_name=="Nebraska"|team_name=="Illinois"|team_name=="Penn State"|team_name=="Maryland"|team_name=="Iowa"|team_name=="Rutgers")
+
+big_ten_results |>
+  group_by(team_name) |>
+  summarise(
+    total_meets = n()
+  )
+```
+
+```{r}
+#This data set is for looking at Big Ten gymansts only.
+big_ten_athletes <- gymnast_results_by_meet|> filter(team_name == "Michigan State" | team_name=="Michigan" |team_name=="Ohio State"|team_name=="Minnesota"|team_name=="Nebraska"|team_name=="Illinois"|team_name=="Penn State"|team_name=="Maryland"|team_name=="Iowa"|team_name=="Rutgers")
+```
+
+Then, I wanted to look at Big Ten as a whole by comparing average total scores for each team throughout the whole time period. I thought a stacked bar chart would be a good way to do that.
+
+```{r}
+#This is a chart all the Big Ten team's total average scores from the entire time period.
+
+big_ten_avg <- big_ten_results|>
+  group_by(team_name) |>
+  summarise(
+    avg_score = mean(team_score)
+  )
+
+ggplot() +
+  geom_bar(data=big_ten_avg, 
+           aes(x=reorder(team_name, avg_score), weight=avg_score)) + coord_flip()
+```
+
+I was wrong! I forgot how close gymnastics scores are, so looking at total averages shows virtually no difference visually other than the order of teams by this number. So, I moved on to other findings until I figured out a way to display that difference among Big Ten teams.
+
+I decided to narrow my focus on Maryland for now.
+
+```{r}
+#These are Maryland's averages on each event and total for each season.
+md_results <- big_ten_results |>
+  filter(team_name=="Maryland")
+
+md_results |>
+  group_by(year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score),
+    avg_total = mean(team_score)
+  ) |>
+  arrange(desc(avg_total))
+```
+
+We can see that Maryland had its best average total score at meets in 2024 with a high of 196.6708, and its lowest in 2017 at just under 195.
+
+I also wanted to look at averages of individual Maryland gymnasts on events and all-around.
+
+```{r}
+#This is to narrow down Maryland gymnasts' results and look at the team's averages on events and all-around by year.
+
+md_gymnasts <- gymnast_results_by_meet |> filter(team_name=="Maryland")
+
+md_gymnasts |>
+  group_by(year) |>
+  summarise(
+    avg_aa = mean(aa_score, na.rm=TRUE),
+    avg_vt = mean(vt_score, na.rm=TRUE),
+    avg_fx = mean(fx_score, na.rm=TRUE),
+    avg_bb = mean(bb_score, na.rm=TRUE),
+    avg_ub = mean(ub_score, na.rm=TRUE)
+    ) |>
+  arrange(desc(avg_aa))
+```
+
+This was interesting because it shows that Maryland gymnasts' saw one of their worst all-around average scores in 2024 despite the same year being Maryland's best in team scores.
+
+So far, the main issue or weakness in analyzing this data is that gymnastics scores tend to be pretty close so differences between teams and events are not drastic. However, it has been fairly easy to analyze this data, and it will still be possible to answer my questions regardless of how close the numbers may be. That is just how the sport works.
+
+For some reason, I decided to test out another stacked bar chart by looking at Maryland's averages on each event for each year.
+
+```{r}
+md_avg_stack <- md_results |>
+  group_by(year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score)
+    ) 
+
+md_avg_stack <- md_avg_stack |> 
+  pivot_longer(
+    cols=starts_with("avg"), 
+    names_to="event", 
+    values_to="score")
+
+ggplot() + 
+  geom_bar(
+    data=md_avg_stack, 
+    aes(x=reorder(year, score), weight=score, fill=event)) + coord_flip()
+```
+
+This was another big fail because there is nothing visual in this data showing any difference in performance over the years besides the cool colors.
+
+I decided to switch gears after that to a line chart to compare Big Ten team average team scores over the years, instead of the initial failed bar chart.
+
+```{r}
+big_ten_diff <- big_ten_results |>
+  group_by(team_name, year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score),
+    avg_total = mean(team_score)
+  )
+
+md_line <- md_results |>
+  group_by(year) |>
+  summarise(
+    avg_bb = mean(bb_score),
+    avg_ub = mean(ub_score),
+    avg_fx = mean(fx_score),
+    avg_vt = mean(vt_score),
+    avg_total = mean(team_score)
+  )
+
+ggplot() + 
+  geom_line(data=big_ten_diff, aes(x=year, y=avg_total, group=team_name), color="grey") + 
+  geom_line(data=md_line, aes(x=year, y=avg_total), color="red") +
+  scale_x_discrete(limits = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)) +
+  scale_y_continuous(limits = c(190,200))
+```
+
+(There was a very low outlier where Michigan scored an abysmal total score one meet in 2016, so I removed that to make the chart better to read.) But this chart was much better! Although the y-axis is far from ideal with its range, it allows us to see some differences in team scores over time and compare where Maryland (red) falls: pretty average and center of the road.
+
+Then, I just needed to take a moment to see a clear table with each year, event, and average score to see where Maryland seemed to falter.
+
+```{r}
+md_avg_stack |> arrange()
+```
+
+By analyzing this data, it shows that Mary;and's balance beam score has been the lowest average of all of the events for almost every year. So, I wanted to analyze how the rest of the Big Ten compares on beam.
+
+```{r}
+big_ten_beam <- big_ten_results |>
+  group_by(team_name) |>
+  summarise(
+    avg_bb = mean(bb_score)
+  ) |>
+  arrange() 
+
+big_ten_beam
+```
+
+I found that Maryland has the third lowest average balance beam score when compared to all other Big Ten Teams.
+
+Now, back to another problem because I did not like my line chart: What would be the best way to visualize the differences between team scores since they are so close?
+
+Derek introduced me to the density ridge plot, so I tried that with Big Ten's team scores over the years.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(ggridges)
+
+#First, I filtered out that funky Michigan outlier to not mess with the graphs.
+big_ten_results <- big_ten_results |> filter(!row_number() %in% c(353))
+ 
+ggplot(big_ten_results, aes(x = team_score, y = reorder(team_name, team_score))) + geom_density_ridges() + theme_minimal() + 
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.5,
+                      quantiles = 2) +
+  labs(
+    title = "Maryland gymnastics balance in middle of Big Ten",
+    subtitle = "In the last decade, Michigan outperforming in Big Ten alongside an average Maryland.",
+    x = "Team Scores",
+    y = "Big Ten Teams"
+  ) 
+```
+
+Finally a chart that makes sense! Here we can see teams in the order of highest to lowest team scores, with Maryland at about the center of the road. It shows the same point as the line chart, but in a much more visually appealing way that is easier to understand.
+
+Now, since I liked that chart, I just had some fun with it and made more. This next one is for Big Ten team beam scores.
+
+```{r}
+ggplot(big_ten_results, aes(x = bb_score, y = reorder(team_name, bb_score))) + geom_density_ridges()
+```
+
+Maryland falters at third worst on beam as a team with Michigan on top once again.
+
+Then, I wanted to see how Maryland's team scores on different events compare.
+
+```{r}
+md_wider <- md_results |> 
+  pivot_longer(
+    cols = ends_with("score"), names_to = "Events", values_to = "Scores"
+  ) |> filter(Events != "team_score")
+
+ggplot(md_wider, aes(x = Scores, y = reorder(Events, Scores))) + geom_density_ridges()
+```
+
+Beam is at the bottom, of course, with floor being the team's best event.
+
+But I still needed one more chart to analyze this data, and I wanted to see how individual gymnasts did on beam. So I thought a scatter plot could be a good way to do so.
+
+```{r}
+md_beam <- md_gymnasts |> filter(bb_score>0, na.rm=TRUE) |>
+  group_by(bb_score) |> summarise(total = n())
+
+ggplot() + 
+  geom_point(
+    data=md_beam, 
+    aes(x=bb_score, y=total)) + theme_minimal() +
+  labs(
+    title = "Few Maryland gymnasts nearing perfect beam score",
+    subtitle = "Most beam scores fall around 9.75.",
+    x = "Beam Score",
+    y = "Frequency"
+  )
+```
+
+This chart, which was another one of my most clear ones, shows how often Maryland gymnasts have obtained certain scores on beam. While the team is mostly scoring above 8.5, they are still struggling to reach upper 9 scores.
