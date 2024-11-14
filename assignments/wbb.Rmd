@@ -1,0 +1,42 @@
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggrepel)
+
+teams <- read_csv("https://dwillis.github.io/sports-data-files/wbbstats25.csv")
+```
+
+```{r}
+
+avg_srs <- unbeaten |>
+  filter(!is.na(OverallSRS)) |>
+  summarise(
+    mean(OverallSRS)
+  ) |>
+  pull(1)
+
+avg_sos <- unbeaten |>
+  filter(!is.na(OverallSOS)) |>
+  summarise(
+    mean(OverallSOS)
+  ) |>
+  pull(1)
+
+unbeaten <- teams |> filter(OverallLosses==0)
+
+md <- teams |> filter(School=='Maryland')
+
+bigten <- unbeaten |> filter(School %in% c('Illinois', 'Indiana', 'Iowa', 'Michigan', 'Michigan State', 'Ohio State', 'Minnesota', 'Nebraska', 'Northwestern', 'Rutgers', 'Southern California', 'UCLA', 'Oregon', 'Washington', 'Maryland'))
+
+ggplot() +
+  geom_point(data = unbeaten, aes(x=OverallSRS, y=OverallSOS, size=OverallWins), color='grey') +
+  geom_point(data=bigten, aes(x=OverallSRS, y=OverallSOS, size=OverallWins), color='yellow') +
+  geom_point(data = md, aes(x=OverallSRS, y=OverallSOS, size=OverallWins), color = 'red') +
+  geom_vline(xintercept = avg_srs) +
+  geom_hline(yintercept = avg_sos) +
+  geom_text_repel(
+    data=bigten, 
+    aes(x=OverallSRS, y=OverallSOS, label=School)
+  )
+  
+```
