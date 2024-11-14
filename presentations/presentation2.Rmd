@@ -1,0 +1,12 @@
+**By Marwa Barakat**
+
+writing here
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(install.packages("devtools"))
+suppressPackageStartupMessages(install.packages("remotes"))
+suppressPackageStartupMessages(remotes::install_version("SDMTools", "1.1-221"))
+suppressPackageStartupMessages(devtools::install_github("statsbomb/StatsBombR"))
+```
