@@ -1,12 +1,46 @@
 **By Marwa Barakat**
 
-writing here
+Data: StatsBomb, [https://statsbomb.com/news/statsbomb-release-free-messi-data-all-seasons-from-2004-05-2020-21-now-av](https://statsbomb.com/news/statsbomb-release-free-messi-data-all-seasons-from-2004-05-2020-21-now-available/){.uri}
 
 ```{r}
+#Load in necessary packages.
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(install.packages("devtools"))
 suppressPackageStartupMessages(install.packages("remotes"))
 suppressPackageStartupMessages(remotes::install_version("SDMTools", "1.1-221"))
 suppressPackageStartupMessages(devtools::install_github("statsbomb/StatsBombR"))
+suppressPackageStartupMessages(library(StatsBombR))
 ```
+
+```{r}
+#Make a dataframe for all La Liga seasons that Messi played in.
+competitions <- FreeCompetitions() |>
+filter(competition_id==11 & season_name!='1973/1974')
+
+#Make a dataframe for all relevant matches from those seasons.
+barca_matches <- FreeMatches(competitions) |> filter(home_team.home_team_name=='Barcelona')
+
+#Make a df for all event data from those matches.
+event_data <- free_allevents(MatchesDF = barca_matches, Parallel = T) 
+
+#Narrow down to Messi's actions only.
+messi_event <- event_data |> filter(player.id==5503) 
+```
+
+```{r}
+#This shows how many "events" he had in each season in the data. 
+messi_event |>
+  group_by(season_id) |>
+  summarise(
+    total = n()
+  )
+```
+
+11/16 Update #1:
+
+So far, I have narrowed down the data to make a dataframe of Messi's La Liga data from the 2004/05 season to the 2020/21 season. I also have all the La Liga data from those seasons from other teams as well. The data is very large and complex, so I just need to narrow down what I want to look at by looking through the guides they posted to see what all the columns are and what is possible. I think I'm leaning toward looking at passing or shooting in some capacity. I might even do something like just looking at Messi playing against Real Madrid to narrow the scope more.
+
+To Do/Resolve:
+
+-   make sure to get the season_name in the messi_event df, not just season_id, so you can identify season
