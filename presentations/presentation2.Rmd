@@ -6,10 +6,6 @@ Data: StatsBomb, [https://statsbomb.com/news/statsbomb-release-free-messi-data-a
 #Load in necessary packages.
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(install.packages("devtools"))
-suppressPackageStartupMessages(install.packages("remotes"))
-suppressPackageStartupMessages(remotes::install_version("SDMTools", "1.1-221"))
-suppressPackageStartupMessages(devtools::install_github("statsbomb/StatsBombR"))
 suppressPackageStartupMessages(library(StatsBombR))
 ```
 
@@ -19,28 +15,101 @@ competitions <- FreeCompetitions() |>
 filter(competition_id==11 & season_name!='1973/1974')
 
 #Make a dataframe for all relevant matches from those seasons.
-barca_matches <- FreeMatches(competitions) |> filter(home_team.home_team_name=='Barcelona')
+barca_matches <- FreeMatches(competitions) |> filter(home_team.home_team_name=='Barcelona' | away_team.away_team_name == 'Barcelona')
 
 #Make a df for all event data from those matches.
 event_data <- free_allevents(MatchesDF = barca_matches, Parallel = T) 
-
-#Narrow down to Messi's actions only.
-messi_event <- event_data |> filter(player.id==5503) 
 ```
 
 ```{r}
+#Narrow down to Messi's actions only.
+messi_event <- event_data |> filter(player.id==5503) 
+
 #This shows how many "events" he had in each season in the data. 
+messi_event <- messi_event |>
+  mutate(
+    season_year = case_when(
+      season_id == 1 ~ "2017/18",
+      season_id == 2 ~ "2016/17",
+      season_id == 4 ~ "2018/19",
+      season_id == 21 ~ "2009/10",
+      season_id == 22 ~ "2010/11",
+      season_id == 23 ~ "2011/12",
+      season_id == 24 ~ "2012/13",
+      season_id == 25 ~ "2013/14",
+      season_id == 26 ~ "2014/15",
+      season_id == 27 ~ "2015/16",
+      season_id == 37 ~ "2004/05",
+      season_id == 38 ~ "2005/06",
+      season_id == 39 ~ "2006/07",
+      season_id == 40 ~ "2007/08",
+      season_id == 41 ~ "2008/09",
+      season_id == 42 ~ "2019/20",
+      season_id == 90 ~ "2020/21"
+      ))
+
 messi_event |>
-  group_by(season_id) |>
+  group_by(season_year) |>
   summarise(
     total = n()
-  )
+  ) |> arrange(desc(total))
 ```
 
 11/16 Update #1:
 
 So far, I have narrowed down the data to make a dataframe of Messi's La Liga data from the 2004/05 season to the 2020/21 season. I also have all the La Liga data from those seasons from other teams as well. The data is very large and complex, so I just need to narrow down what I want to look at by looking through the guides they posted to see what all the columns are and what is possible. I think I'm leaning toward looking at passing or shooting in some capacity. I might even do something like just looking at Messi playing against Real Madrid to narrow the scope more.
 
-To Do/Resolve:
+```{r}
+#Narrow down Messi's games/actions against Real Madrid.
+barca_madrid <- barca_matches |>
+  filter(away_team.away_team_name=='Real Madrid' | home_team.home_team_name=='Real Madrid')
 
--   make sure to get the season_name in the messi_event df, not just season_id, so you can identify season
+clasico_event_data <- free_allevents(MatchesDF = barca_madrid, Parallel = T) 
+
+messi_clasico <- clasico_event_data |> filter(player.id==5503)
+
+messi_clasico <- messi_clasico |>
+  mutate(
+    season_year = case_when(
+      season_id == 1 ~ "2017/18",
+      season_id == 2 ~ "2016/17",
+      season_id == 4 ~ "2018/19",
+      season_id == 21 ~ "2009/10",
+      season_id == 22 ~ "2010/11",
+      season_id == 23 ~ "2011/12",
+      season_id == 24 ~ "2012/13",
+      season_id == 25 ~ "2013/14",
+      season_id == 26 ~ "2014/15",
+      season_id == 27 ~ "2015/16",
+      season_id == 37 ~ "2004/05",
+      season_id == 38 ~ "2005/06",
+      season_id == 39 ~ "2006/07",
+      season_id == 40 ~ "2007/08",
+      season_id == 41 ~ "2008/09",
+      season_id == 42 ~ "2019/20",
+      season_id == 90 ~ "2020/21"
+      ))
+
+messi_clasico |>
+  group_by(season_year) |>
+  summarise(
+    total = n()
+  ) |> arrange(desc(total))
+```
+
+```{r}
+messi_clasico |>
+  group_by(season_year) |>
+  summarise(
+    shots = sum(type.name=="Shot", na.rm = TRUE),
+    goals = sum(shot.outcome.name=="Goal", na.rm = TRUE)) |> arrange(desc(goals))
+```
+
+```{r}
+messi_event |>
+  group_by(season_year) |>
+  summarise(
+    goals = sum(shot.outcome.name=="Goal", na.rm = TRUE)) |> arrange(desc(goals))
+
+names(messi_event)
+```
