@@ -276,7 +276,18 @@ scales::percent_format(accuracy = 1), limits = c(0.03, -0.03)) + #6
 I've tried a few different graphs now to look at overall Messi statistics and then narrow down to performance on the field against Real Madrid. I'm going to test out the same type of chart I did for shots and goals on other things to answer my original question and explore what else can be shown that way. The heat map is a little overwhelming, but I will figure out how to fix it!
 
 ```{r}
+messi_assists <- messi_clasico |>
+  filter(pass.goal_assist == TRUE & player.id==5503) 
 
+create_Pitch() +
+ geom_segment(data = messi_assists, aes(x = location.x, y = location.y,
+ xend = pass.end_location.x, yend = pass.end_location.y),
+ lineend = "round", size = 0.5, colour = "black", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + 
+ labs(title = "Lionel Messi, Assists", subtitle = "La Liga,
+vs. Real Madrid") +
+scale_y_reverse() + 
+coord_fixed(ratio = 105/100)
 ```
 
 ```{r}
@@ -336,4 +347,6 @@ Value") +
  strip.text.x = element_text(size=8)) 
 ```
 
-more pass plot attempt:
+**12/2 Update**
+
+This week, I worked on two additional graphs. I really like the shot map because I think it answers my initial question of where Messi is shooting from. I also wanted to do more of those plots looking at passing, which is why I went to assists next. I think there's something wrong with one of the arrows because one of them is apparently a corner kick, but it's not shown as such on the graph, so I will take a look at fixing that later. I fear I may just give up on the heat map, or if I want to go back to it, I think I need to narrow down the timeline because it's too much to look at now. I also want to look at the length of the passes possibly. Due to some time constraints and the fact that RStudio kept glitching on me, I will get to those before my final presentation is done. I can also then go back and write a story connecting all of my charts together, taking out my updates and rearranging to move the best charts up top.
