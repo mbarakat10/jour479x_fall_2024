@@ -277,6 +277,10 @@ I've tried a few different graphs now to look at overall Messi statistics and th
 
 ```{r}
 
+```
+
+```{r}
+
 shots <- messi_clasico |>
  filter(type.name=="Shot" & (shot.type.name!="Penalty" | is.na(shot.type.name)))
 
@@ -332,8 +336,4 @@ Value") +
  strip.text.x = element_text(size=8)) 
 ```
 
-more pass graph attempts:
-
-```{r}
-
-```
+more pass plot attempt:
