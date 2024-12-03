@@ -350,3 +350,5 @@ Value") +
 **12/2 Update**
 
 This week, I worked on two additional graphs. I really like the shot map because I think it answers my initial question of where Messi is shooting from. I also wanted to do more of those plots looking at passing, which is why I went to assists next. I think there's something wrong with one of the arrows because one of them is apparently a corner kick, but it's not shown as such on the graph, so I will take a look at fixing that later. I fear I may just give up on the heat map, or if I want to go back to it, I think I need to narrow down the timeline because it's too much to look at now. I also want to look at the length of the passes possibly. Due to some time constraints and the fact that RStudio kept glitching on me, I will get to those before my final presentation is done. I can also then go back and write a story connecting all of my charts together, taking out my updates and rearranging to move the best charts up top.
+
+-   look at all time free kick goals like shot map
