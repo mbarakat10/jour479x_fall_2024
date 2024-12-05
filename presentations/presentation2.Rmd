@@ -493,3 +493,9 @@ ggplot() +
   theme_minimal() + 
   coord_flip()
 ```
+
+LOOK AT OUTSIDE THE BOX GOALS, would prob help answer initial question
+
+```{r}
+
+```
