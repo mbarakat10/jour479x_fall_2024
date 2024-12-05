@@ -494,8 +494,8 @@ ggplot() +
   coord_flip()
 ```
 
-LOOK AT OUTSIDE THE BOX GOALS, would prob help answer initial question
+LOOK AT OUTSIDE THE BOX GOALS, would prob help answer initial question, look at shot techniques!!
 
 ```{r}
-
+messi_clasico |> group_by()
 ```
