@@ -134,7 +134,7 @@ ggplot() +
   coord_flip() +
   theme_minimal() +
   labs(
-    title = "Lionel Messi sees highest number of shots and goals in 2011/12 season",
+    title = "Lionel Messi breaks records in the 2011/12 season",
     y = "Total",
     x = "Season"
   )
@@ -475,5 +475,21 @@ coord_fixed(ratio = 105/100)
 ```
 
 ```{r}
+messi_season_goals <- messi_event |>
+  group_by(season_year) |>
+  summarise(
+     total_goals = sum(shot.outcome.name=="Goal", na.rm = TRUE))
 
+
+ggplot() + 
+  geom_bar(
+    data=messi_season_goals, 
+    aes(x=reorder(season_year, total_goals),
+        weight=total_goals)) + 
+  labs(
+    title="Messi breaks goal-scoring records in 2011/12 season", 
+    x="Season", 
+    y="Total Goals") + 
+  theme_minimal() + 
+  coord_flip()
 ```
