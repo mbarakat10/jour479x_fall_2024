@@ -1,4 +1,4 @@
-**HEADLINE**
+**Goals, Assists, Free Kicks, Oh My!: A peek into Lionel Messi's iconic La Liga career**
 
 **By Marwa Barakat**
 
@@ -522,8 +522,6 @@ messi_passes <- messi_clasico |>
     location.x = map_dbl(location, ~ .x[1] %||% NA),
     location.y = map_dbl(location, ~ .x[2] %||% NA)
   )
-
-messi_event |> allclean()
 
 messi_passes <- messi_passes |>
   filter(type.name=="Pass" & is.na(pass.outcome.name) & player.id==5503) |>
